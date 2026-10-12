@@ -1,0 +1,601 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>La Comida</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600&display=swap">
+<style>
+/* Layout: sticky bar, split hero, editorial menu grid, dark-green contact band and footer.
+   Palette: cream paper, forest green, charcoal ink, terracotta accent. Type: Fraunces display + Hanken Grotesk body. */
+:root{
+  --bg:#faf6ee; --surface:#fffdf8; --tint:#f1ebdd; --ink:#232622; --muted:#5d625b;
+  --green:#1f4a38; --green-ink:#f4efe3; --terra:#b4562f; --line:#e1d9c6;
+  --shadow:0 10px 30px -14px rgba(35,38,34,.35);
+  --font-display:"Fraunces",Georgia,"Times New Roman",serif;
+  --font-body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a16; --surface:#1b231e; --tint:#222c26; --ink:#efe9da; --muted:#a9b0a4;
+  --green:#0f2a20; --green-ink:#f1ebdc; --terra:#e08a62; --line:#2e3a33;
+  --shadow:0 10px 30px -14px rgba(0,0,0,.7); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a16; --surface:#1b231e; --tint:#222c26; --ink:#efe9da; --muted:#a9b0a4;
+  --green:#0f2a20; --green-ink:#f1ebdc; --terra:#e08a62; --line:#2e3a33;
+  --shadow:0 10px 30px -14px rgba(0,0,0,.7); color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 1rem/1.65 var(--font-body);padding-inline:0}
+h1,h2,h3{font-family:var(--font-display);font-weight:600;line-height:1.12;margin:0;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--terra);outline-offset:3px;border-radius:6px}
+.wrap{width:100%;max-width:1160px;margin-inline:auto;padding-inline:20px}
+section{padding-block:72px}
+.eyebrow{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--terra);font-weight:600}
+.sec-head{display:grid;gap:12px;max-width:620px;margin-bottom:36px}
+.sec-head h2{font-size:clamp(1.9rem,4.2vw,2.8rem)}
+.sec-head p{color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 22px;border-radius:999px;font:600 .95rem var(--font-body);text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:transform .2s,background .2s,color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--terra);color:#fff}
+.btn-primary:hover{background:#9a4624}
+.btn-ghost{border-color:currentColor;background:transparent;color:inherit}
+.btn-green{background:var(--green);color:var(--green-ink)}
+svg.ic{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* header */
+header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:66px}
+.mark{font:600 1.55rem var(--font-display);text-decoration:none;color:var(--green);letter-spacing:-.02em}
+.mark i{color:var(--terra);font-style:italic;font-weight:400}
+:root[data-theme="dark"] .mark{color:var(--ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .mark{color:var(--ink)}}
+nav.main{display:none;gap:22px;align-items:center}
+nav.main a{text-decoration:none;font-weight:500;font-size:.93rem;color:var(--muted);padding-block:6px;border-bottom:2px solid transparent}
+nav.main a:hover{color:var(--ink);border-color:var(--terra)}
+.bar-actions{display:flex;align-items:center;gap:10px}
+.bar-actions .call{display:inline-flex}
+.burger{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center;cursor:pointer}
+.mobile-nav{display:none;border-top:1px solid var(--line);background:var(--bg)}
+.mobile-nav.open{display:block}
+.mobile-nav .wrap{display:grid;padding-block:10px 18px}
+.mobile-nav a{padding:13px 0;text-decoration:none;font:600 1.15rem var(--font-display);border-bottom:1px solid var(--line)}
+@media(min-width:960px){nav.main{display:flex}.burger{display:none}.mobile-nav{display:none!important}.bar-actions .call{display:none}}
+
+/* hero */
+.hero{padding-block:48px 0}
+.hero-grid{display:grid;gap:36px;align-items:center}
+.hero h1{font-size:clamp(2.7rem,8vw,5rem);margin-block:14px 18px}
+.hero h1 em{color:var(--terra);font-weight:400}
+.hero p.lead{color:var(--muted);font-size:1.12rem;max-width:34em}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.scene{background:var(--tint);border-radius:28px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:5/4;max-width:100%}
+.scene svg{width:100%;height:100%;display:block}
+.strip{margin-top:44px;border-block:1px solid var(--line)}
+.strip ul{list-style:none;margin:0;padding:16px 0;display:flex;flex-wrap:wrap;gap:10px 34px;font:italic 400 1.05rem var(--font-display);color:var(--muted)}
+.strip li::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--terra);margin-right:10px;vertical-align:middle}
+@media(min-width:900px){.hero-grid{grid-template-columns:1.05fr .95fr;gap:56px}.hero{padding-top:72px}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.hero .rise{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.hero .rise:nth-child(2){animation-delay:.1s}.hero .rise:nth-child(3){animation-delay:.2s}.hero .rise:nth-child(4){animation-delay:.3s}
+
+/* menu */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.chip{min-height:42px;padding:0 18px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:500 .92rem var(--font-body);cursor:pointer}
+.chip:hover{border-color:var(--green)}
+.chip[aria-pressed="true"]{background:var(--green);color:var(--green-ink);border-color:var(--green)}
+.menu-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.dish{background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;min-width:0;transition:transform .25s,box-shadow .25s}
+.dish:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.dish .pic{aspect-ratio:4/3;background:var(--tint);display:block;width:100%}
+.dish .pic svg,.dish .pic img{width:100%;height:100%;object-fit:cover;display:block}
+.dish .body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.dish h3{font-size:1.25rem;display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+.veg{flex:none;width:18px;height:18px;border:1.5px solid #2f8f4e;border-radius:3px;display:grid;place-items:center;margin-top:5px}
+.veg::after{content:"";width:8px;height:8px;border-radius:50%;background:#2f8f4e}
+.dish .desc{color:var(--muted);font-size:.93rem;flex:1}
+.dish .foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px}
+.price{font-size:.85rem;color:var(--muted)}
+.link-btn{background:none;border:0;color:var(--terra);font:600 .9rem var(--font-body);cursor:pointer;padding:8px 0;text-decoration:underline;text-underline-offset:4px}
+.empty{padding:40px;border:1.5px dashed var(--line);border-radius:18px;text-align:center;color:var(--muted)}
+
+/* bakery */
+.bakery{background:var(--green);color:var(--green-ink)}
+.bakery .eyebrow{color:#f0b392}
+.bakery .sec-head p{color:color-mix(in srgb,var(--green-ink) 78%,transparent)}
+.sweet-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.sweet{border-radius:22px;overflow:hidden;background:color-mix(in srgb,var(--green-ink) 8%,var(--green));border:1px solid color-mix(in srgb,var(--green-ink) 18%,transparent);transition:transform .3s}
+.sweet:hover{transform:translateY(-6px) rotate(-.4deg)}
+.sweet .pic{aspect-ratio:1/1;background:color-mix(in srgb,var(--green-ink) 94%,var(--green))}
+.sweet .pic svg,.sweet .pic img{width:100%;height:100%;object-fit:cover;display:block}
+.sweet h3{padding:16px 18px 20px;font-size:1.2rem}
+
+/* about */
+.about-grid{display:grid;gap:36px;align-items:center}
+.about-grid h2{font-size:clamp(1.9rem,4.2vw,2.8rem);margin-block:12px 18px}
+.about-grid p{color:var(--muted);max-width:34em}
+.tags{list-style:none;padding:0;margin:24px 0 0;display:flex;flex-wrap:wrap;gap:10px}
+.tags li{padding:8px 16px;border-radius:999px;background:var(--tint);font-weight:500;font-size:.9rem}
+.collage{display:grid;grid-template-columns:1.2fr 1fr;grid-template-rows:auto auto;gap:14px}
+.collage .c{border-radius:22px;overflow:hidden;background:var(--tint);min-width:0}
+.collage .c svg,.collage .c img{width:100%;height:100%;display:block;object-fit:cover}
+.collage .c1{grid-row:span 2;aspect-ratio:3/4}
+.collage .c2,.collage .c3{aspect-ratio:1/1}
+@media(min-width:900px){.about-grid{grid-template-columns:1fr 1fr;gap:64px}}
+
+/* why */
+.why{background:var(--tint)}
+.why-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.why-card{background:var(--surface);border-radius:20px;padding:26px 22px;display:grid;gap:12px;align-content:start;min-width:0}
+.why-card .ic{width:30px;height:30px;color:var(--terra)}
+.why-card h3{font-size:1.2rem}
+.why-card p{color:var(--muted);font-size:.94rem}
+
+/* reviews */
+.rating{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:28px}
+.rating b{font:600 3.2rem/1 var(--font-display);color:var(--green)}
+:root[data-theme="dark"] .rating b{color:var(--ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .rating b{color:var(--ink)}}
+.stars{color:var(--terra);letter-spacing:3px}
+.quotes{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-bottom:30px}
+.quote{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:26px 24px;display:grid;gap:14px;align-content:space-between;min-width:0}
+.quote p{font:italic 400 1.2rem/1.45 var(--font-display)}
+.quote span{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* gallery */
+.gal{columns:3 220px;column-gap:14px}
+.gal button{display:block;width:100%;margin:0 0 14px;padding:0;border:0;border-radius:18px;overflow:hidden;background:var(--tint);cursor:zoom-in;position:relative;break-inside:avoid;transition:transform .25s}
+.gal button:hover{transform:scale(1.015)}
+.gal button svg,.gal button img{width:100%;display:block}
+.gal .cap{position:absolute;inset:auto 0 0 0;padding:26px 14px 12px;color:#fff;font:600 .85rem var(--font-body);text-align:left;background:linear-gradient(transparent,rgba(20,24,20,.72))}
+.lightbox{position:fixed;inset:0;z-index:60;background:rgba(14,18,15,.92);display:none;align-items:center;justify-content:center;padding:20px}
+.lightbox.open{display:flex}
+.lightbox figure{margin:0;max-width:min(92vw,760px);width:100%;display:grid;gap:12px}
+.lightbox .frame{border-radius:20px;overflow:hidden;background:var(--tint)}
+.lightbox .frame svg,.lightbox .frame img{width:100%;max-height:72vh;display:block;object-fit:contain}
+.lightbox figcaption{color:#efe9da;text-align:center;font:italic 400 1.1rem var(--font-display)}
+.lb-btn{position:absolute;width:48px;height:48px;border-radius:50%;border:1.5px solid rgba(255,255,255,.4);background:rgba(255,255,255,.08);color:#fff;cursor:pointer;display:grid;place-items:center}
+.lb-close{top:calc(16px + env(safe-area-inset-top,0px));right:16px}.lb-prev{left:12px;top:50%}.lb-next{right:12px;top:50%}
+
+/* contact */
+.contact{background:var(--green);color:var(--green-ink)}
+.contact .eyebrow{color:#f0b392}
+.contact-grid{display:grid;gap:40px}
+.contact h2{font-size:clamp(1.9rem,4.2vw,2.8rem);margin-block:12px 18px}
+.contact address{font-style:normal;color:color-mix(in srgb,var(--green-ink) 85%,transparent);max-width:30em}
+.phone-line{margin-top:18px;font:600 1.5rem var(--font-display)}
+.phone-line small{display:block;font:400 .85rem var(--font-body);opacity:.75}
+.contact .cta-row .btn-ghost{color:var(--green-ink)}
+.mapcard{margin-top:26px;border-radius:20px;border:1px dashed color-mix(in srgb,var(--green-ink) 40%,transparent);padding:20px;display:grid;gap:12px}
+.mapcard p{font-size:.92rem;opacity:.85}
+form.enq{background:var(--surface);color:var(--ink);border-radius:24px;padding:26px 22px;display:grid;gap:16px;min-width:0}
+form.enq h3{font-size:1.5rem}
+.field{display:grid;gap:6px}
+.field label{font-weight:600;font-size:.88rem}
+.field input,.field textarea{width:100%;font:400 1rem var(--font-body);padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+.field textarea{min-height:120px;resize:vertical}
+.field .err{color:#b3261e;font-size:.84rem;min-height:1em}
+:root[data-theme="dark"] .field .err{color:#ff9b8f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .field .err{color:#ff9b8f}}
+.field [aria-invalid="true"]{border-color:#b3261e}
+.status{border-radius:12px;padding:12px 14px;font-size:.92rem;display:none;gap:10px;flex-direction:column}
+.status.show{display:flex}
+.status.ok{background:color-mix(in srgb,#2f8f4e 18%,var(--surface))}
+.status.bad{background:color-mix(in srgb,var(--terra) 16%,var(--surface))}
+@media(min-width:900px){.contact-grid{grid-template-columns:1fr 1fr;gap:64px;align-items:start}}
+
+footer{background:var(--green);color:var(--green-ink);border-top:1px solid color-mix(in srgb,var(--green-ink) 18%,transparent);padding-block:56px 36px}
+footer .mark{color:var(--green-ink)}
+.foot-grid{display:grid;gap:34px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.foot-grid h4{margin:0 0 12px;font:600 .78rem var(--font-body);letter-spacing:.16em;text-transform:uppercase;color:#f0b392}
+.foot-grid ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:.93rem}
+.foot-grid a{text-decoration:none;opacity:.88}.foot-grid a:hover{opacity:1;text-decoration:underline}
+.foot-grid p{font-size:.93rem;opacity:.85;max-width:26em;margin-top:12px}
+.copy{margin-top:38px;padding-top:20px;border-top:1px solid color-mix(in srgb,var(--green-ink) 18%,transparent);font-size:.84rem;opacity:.75}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<script type="application/ld+json" id="ld"></script>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="mark" href="#home" aria-label="La Comida home">La <i>Comida</i></a>
+    <nav class="main" aria-label="Primary">
+      <a href="#home">Home</a><a href="#menu">Our Menu</a><a href="#about">About Us</a><a href="#bakery">Bakery &amp; Desserts</a><a href="#gallery">Gallery</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a>
+    </nav>
+    <div class="bar-actions">
+      <a class="btn btn-ghost call" href="tel:+919604577771" aria-label="Call La Comida">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Call Now</a>
+      <a class="btn btn-primary" href="#menu" id="exploreBtn" style="display:none">Explore Menu</a>
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="mnav" aria-label="Open menu">
+        <svg class="ic" viewBox="0 0 24 24" id="burgerIc"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mnav"><div class="wrap">
+    <a href="#home">Home</a><a href="#menu">Our Menu</a><a href="#about">About Us</a><a href="#bakery">Bakery &amp; Desserts</a><a href="#gallery">Gallery</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a>
+  </div></div>
+</header>
+
+<main id="home">
+<section class="hero" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow rise">Vegetarian bistro &amp; live bakery</p>
+        <h1 class="rise">Good Food.<br><em>Great Moments.</em></h1>
+        <p class="lead rise">Discover a cozy vegetarian bistro where handcrafted desserts, comforting café favourites, and flavours from around the world come together.</p>
+        <div class="cta-row rise">
+          <a class="btn btn-primary" href="#menu">Explore Our Menu</a>
+          <a class="btn btn-ghost" href="tel:+919604577771">Call for Enquiries</a>
+        </div>
+      </div>
+      <div class="scene rise" id="heroScene" role="img" aria-label="Illustration of a café table with cheesecake, pasta and coffee"></div>
+    </div>
+    <div class="strip"><ul><li>Vegetarian Bistro</li><li>Live Bakery</li><li>International Café Favourites</li></ul></div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Our Menu</p>
+      <h2>Signature dishes, one table at a time</h2>
+      <p>Every dish is vegetarian. Ask us about today's availability and prices.</p>
+    </div>
+    <div class="filters" id="filters" role="group" aria-label="Filter menu by category"></div>
+    <div class="menu-grid" id="menuGrid" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="bakery" id="bakery">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Live Bakery</p>
+      <h2>Sweet Moments, Freshly Crafted</h2>
+      <p>From creamy cheesecakes to delightful bento cakes and indulgent brownies, explore dessert favourites made for every little celebration.</p>
+    </div>
+    <div class="sweet-grid" id="sweetGrid"></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div>
+      <p class="eyebrow">About La Comida</p>
+      <h2>Your Cozy Corner for Great Food</h2>
+      <p>La Comida brings together the comfort of a welcoming café, the charm of a bakery, and a menu inspired by flavours from around the world. Whether you are meeting friends, enjoying a relaxed coffee, sharing desserts, or exploring vegetarian favourites, La Comida offers a place to slow down and enjoy good food.</p>
+      <ul class="tags"><li>Vegetarian dishes</li><li>Cozy bistro atmosphere</li><li>Live bakery</li><li>International-inspired menu</li></ul>
+    </div>
+    <div class="collage" id="collage"></div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap">
+    <div class="sec-head"><p class="eyebrow">Why visit</p><h2>Why Visit La Comida?</h2></div>
+    <div class="why-grid">
+      <div class="why-card"><svg class="ic" viewBox="0 0 24 24"><path d="M5 19c0-8 5-13 14-14 0 9-5 14-14 14zM5 19c3-4 6-7 9-9"/></svg><h3>A Vegetarian-Friendly Menu</h3><p>Explore vegetarian dishes across snacks, pasta, pizza, ramen, rice bowls, and desserts.</p></div>
+      <div class="why-card"><svg class="ic" viewBox="0 0 24 24"><path d="M4 11h13v4a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-4zM17 12h1.5a2.5 2.5 0 0 1 0 5H17M8 3c-1 1.2 1 2 0 3.5M12 3c-1 1.2 1 2 0 3.5"/></svg><h3>A Cozy Café Atmosphere</h3><p>A welcoming setting for relaxed conversations and casual dining.</p></div>
+      <div class="why-card"><svg class="ic" viewBox="0 0 24 24"><path d="M3 18h18M5 18l2-8h10l2 8M12 10V6m0 0a1.6 1.6 0 1 0 0-.01"/></svg><h3>Desserts Worth Exploring</h3><p>Discover cheesecake varieties, bento cakes, and brownie favourites.</p></div>
+      <div class="why-card"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg><h3>Flavours from Around the World</h3><p>Enjoy a menu inspired by café classics and international dishes.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="wrap">
+    <div class="sec-head"><p class="eyebrow">Reviews</p><h2>What Our Guests Say</h2></div>
+    <div class="rating"><b id="ratingNum"></b><div><div class="stars" aria-hidden="true">★★★★★</div><div id="ratingTxt" style="color:var(--muted);font-size:.93rem"></div></div></div>
+    <div class="quotes" id="quotes"></div>
+    <a class="btn btn-green" id="reviewsLink" href="#" target="_blank" rel="noopener">Read Google Reviews</a>
+  </div>
+</section>
+
+<section id="gallery" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><p class="eyebrow">Gallery</p><h2>A look around</h2><p>Tap any tile to see it larger.</p></div>
+    <div class="gal" id="gal"></div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap contact-grid">
+    <div>
+      <p class="eyebrow">Visit &amp; Contact</p>
+      <h2>Find us at La Comida</h2>
+      <address id="addr"></address>
+      <p class="phone-line"><span id="phoneTxt"></span><small>Tap to call on a phone, or copy the number.</small></p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="tel:+919604577771">Call Now</a>
+        <a class="btn btn-ghost" id="dirBtn" href="#" target="_blank" rel="noopener">Get Directions</a>
+        <a class="btn btn-ghost" href="#menu">Explore Menu</a>
+        <button class="btn btn-ghost" type="button" id="copyPhone">Copy number</button>
+      </div>
+      <div class="mapcard">
+        <p>Maps open in a new tab so you get live directions from where you are.</p>
+        <a class="btn btn-ghost" id="mapBtn" href="#" target="_blank" rel="noopener" style="justify-self:start">Open in Google Maps</a>
+      </div>
+    </div>
+    <form class="enq" id="enq" novalidate>
+      <h3>Send an enquiry</h3>
+      <div class="field"><label for="fName">Name</label><input id="fName" name="name" autocomplete="name" required><span class="err" id="eName"></span></div>
+      <div class="field"><label for="fPhone">Phone number</label><input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="10-digit mobile number"><span class="err" id="ePhone"></span></div>
+      <div class="field"><label for="fEmail">Email (optional)</label><input id="fEmail" name="email" type="email" autocomplete="email"><span class="err" id="eEmail"></span></div>
+      <div class="field"><label for="fMsg">Message</label><textarea id="fMsg" name="message" required></textarea><span class="err" id="eMsg"></span></div>
+      <button class="btn btn-primary" type="submit" id="sendBtn">Submit Enquiry</button>
+      <div class="status" id="status" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div><a class="mark" href="#home">La <i>Comida</i></a><p>A cozy vegetarian bistro and live bakery in Chhatrapati Sambhajinagar.</p></div>
+      <div><h4>Explore</h4><ul><li><a href="#home">Home</a></li><li><a href="#menu">Our Menu</a></li><li><a href="#about">About Us</a></li><li><a href="#bakery">Bakery &amp; Desserts</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#contact">Contact</a></li></ul></div>
+      <div><h4>Menu</h4><ul id="footCats"></ul></div>
+      <div><h4>Visit</h4><ul><li id="footAddr"></li><li id="footPhone"></li><li><a id="footMap" href="#" target="_blank" rel="noopener">View on Google Maps</a></li></ul></div>
+    </div>
+    <p class="copy">© <span id="yr"></span> La Comida. All rights reserved.</p>
+  </div>
+</footer>
+
+<div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lb-btn lb-close" id="lbClose" aria-label="Close"><svg class="ic" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="Previous"><svg class="ic" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <button class="lb-btn lb-next" id="lbNext" aria-label="Next"><svg class="ic" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+  <figure><div class="frame" id="lbFrame"></div><figcaption id="lbCap"></figcaption></figure>
+</div>
+
+<script>
+/* ===== Central config: edit business details, menu, gallery and reviews here ===== */
+var CONFIG = {
+  name: "La Comida",
+  phone: "+91 96045 77771",
+  phoneHref: "tel:+919604577771",
+  address: "Plot No. 12, Shop No. 8/9, Ground Floor, Satya Pushpa Solaris, Dashmesh Nagar, New Usmanpura, Chhatrapati Sambhajinagar, Maharashtra 431005, India",
+  priceRange: "₹200–₹400 per person",
+  rating: { value: "4.4", count: 158 },
+  // Set to a verified Google Business Profile reviews URL when available.
+  reviewsUrl: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("La Comida Satya Pushpa Solaris Dashmesh Nagar Chhatrapati Sambhajinagar"),
+  mapsUrl: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("La Comida Satya Pushpa Solaris Dashmesh Nagar New Usmanpura Chhatrapati Sambhajinagar 431005"),
+  directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent("La Comida Satya Pushpa Solaris Dashmesh Nagar New Usmanpura Chhatrapati Sambhajinagar 431005"),
+  // Paste a form service URL (for example a Formspree endpoint). Left empty, the form says it is not connected.
+  formEndpoint: "",
+  instagram: "",
+  hours: null
+};
+// Each dish: name, cat (filter key), art (illustration), desc, price (number or null), image (optional photo URL or data URI)
+var FILTERS = [["all","All"],["desserts","Desserts"],["pasta","Pasta & Pizza"],["asian","Asian"],["snacks","Snacks"],["beverages","Beverages"],["intl","International"]];
+var MENU = [
+ {name:"Strawberry Cheesecake",cat:"desserts",art:"cheese",c:"#d9506a",desc:"A creamy cheesecake slice from the bakery counter.",price:null},
+ {name:"Blueberry Cheesecake",cat:"desserts",art:"cheese",c:"#5b5fb0",desc:"A creamy cheesecake slice with a blueberry finish.",price:null},
+ {name:"Cheese Cakes",cat:"desserts",art:"cheese",c:"#d9a441",desc:"More cheesecake varieties. Ask what is available.",price:null},
+ {name:"Bento Cake",cat:"desserts",art:"bento",c:"#d9506a",desc:"A small cake made for sharing a little celebration.",price:null},
+ {name:"Sizzling Brownie",cat:"desserts",art:"brownie",c:"#4a2c20",desc:"A brownie served hot, for the dessert lovers.",price:null},
+ {name:"Arrabiata Pasta",cat:"pasta",art:"pasta",c:"#c8452c",desc:"Pasta in an arrabiata-style red sauce.",price:null},
+ {name:"Penne Alfredo Pasta",cat:"pasta",art:"pasta",c:"#efe0b4",desc:"Penne in a creamy Alfredo-style sauce.",price:null},
+ {name:"Veg Exotica Pizza",cat:"pasta",art:"pizza",c:"#c8452c",desc:"A vegetarian pizza from the Italian favourites.",price:null},
+ {name:"Veg Ramen Noodles (350 ml bowl)",cat:"asian",art:"ramen",c:"#d98a3d",desc:"A 350 ml bowl of vegetarian ramen noodles.",price:null},
+ {name:"Mushroom Chilli Rice Bowl",cat:"asian",art:"rice",c:"#b4562f",desc:"A rice bowl with mushroom chilli.",price:null},
+ {name:"Mango 1401 Veg Ramen",cat:"asian",art:"ramen",c:"#e8a92f",desc:"A house ramen variation. Ask us about it.",price:null},
+ {name:"Salted Fries",cat:"snacks",art:"fries",c:"#e9b949",desc:"Classic fries, lightly salted.",price:null},
+ {name:"Peri Peri Fries",cat:"snacks",art:"fries",c:"#d9692f",desc:"Fries with a peri peri kick.",price:null},
+ {name:"Potato Wedges",cat:"snacks",art:"fries",c:"#d9a24a",desc:"Thick-cut potato wedges for sharing.",price:null},
+ {name:"Cheese Maggie",cat:"snacks",art:"ramen",c:"#f0c248",desc:"Café-style Maggie noodles with cheese.",price:null},
+ {name:"Cold Coffee",cat:"beverages",art:"coffee",c:"#8a5a3c",desc:"Chilled coffee, served cold.",price:null},
+ {name:"Coffee Frappe",cat:"beverages",art:"coffee",c:"#b78a63",desc:"A blended, frosty coffee frappe.",price:null},
+ {name:"French Hot Chocolate",cat:"beverages",art:"cocoa",c:"#5a3426",desc:"A warm cup of French-style hot chocolate.",price:null},
+ {name:"Bean Taco",cat:"intl",art:"taco",c:"#d9a24a",desc:"A bean taco from the international bites.",price:null}
+];
+var SWEETS = [
+ {name:"Strawberry Cheesecake",art:"cheese",c:"#d9506a"},
+ {name:"Blueberry Cheesecake",art:"cheese",c:"#5b5fb0"},
+ {name:"Bento Cakes",art:"bento",c:"#d9506a"},
+ {name:"Sizzling Brownies",art:"brownie",c:"#4a2c20"}
+];
+// Replace `art` tiles with real photos by adding image: "https://..." (or a data URI) to any item below.
+var GALLERY = [
+ {cap:"Café seating",art:"table",c:"#1f4a38",h:1.0},
+ {cap:"Cheesecakes",art:"cheese",c:"#d9506a",h:1.25},
+ {cap:"Pasta",art:"pasta",c:"#c8452c",h:.9},
+ {cap:"Ramen bowls",art:"ramen",c:"#d98a3d",h:1.15},
+ {cap:"Coffee & beverages",art:"coffee",c:"#8a5a3c",h:1.3},
+ {cap:"Pizza",art:"pizza",c:"#c8452c",h:.95},
+ {cap:"Bakery creations",art:"bento",c:"#d9506a",h:1.1},
+ {cap:"Rice bowls",art:"rice",c:"#b4562f",h:1.0}
+];
+var REVIEWS = [
+ "A perfect cafe with an inviting ambience and exceptional taste.",
+ "Great Food, Good Ambiance, Great Service. What else you need?? A must visit place.",
+ "La Comida offers an exceptional dining experience with its diverse and flavorful menu."
+];
+
+/* ===== Illustrations (stand-ins until real photographs are added) ===== */
+function art(kind, c, bgTone){
+  var w='<svg viewBox="0 0 120 96" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true">';
+  var plate='<ellipse cx="60" cy="78" rx="46" ry="9" fill="#000" opacity=".12"/>';
+  var s='';
+  if(kind==="cheese") s=plate+'<path d="M24 72 L96 72 L82 34 Q60 26 38 34 Z" fill="#f6e7c1"/><path d="M24 72 L96 72 L94 64 L26 64 Z" fill="#a8693f"/><path d="M38 34 Q60 26 82 34 L80 42 Q60 36 40 42 Z" fill="'+c+'"/><circle cx="52" cy="33" r="4" fill="'+c+'"/><circle cx="68" cy="32" r="4" fill="'+c+'"/><circle cx="60" cy="30" r="3" fill="#fff" opacity=".5"/>';
+  else if(kind==="bento") s=plate+'<ellipse cx="60" cy="66" rx="30" ry="9" fill="#f3d9b8"/><rect x="30" y="40" width="60" height="26" rx="6" fill="#fbeedd"/><path d="M30 46 Q38 56 46 46 Q54 56 62 46 Q70 56 78 46 Q84 52 90 46 L90 42 L30 42 Z" fill="'+c+'"/><circle cx="60" cy="34" r="6" fill="#c2273d"/><path d="M60 28 Q64 20 70 20" stroke="#2f6b3c" stroke-width="2" fill="none"/>';
+  else if(kind==="brownie") s=plate+'<rect x="24" y="52" width="72" height="20" rx="5" fill="'+c+'"/><rect x="30" y="40" width="46" height="16" rx="4" fill="#3a2118"/><circle cx="76" cy="40" r="12" fill="#f6ead2"/><path d="M40 28 q-4-8 0-14M56 26 q-4-8 0-14M72 24 q-4-8 0-14" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".7"/>';
+  else if(kind==="pasta") s=plate+'<path d="M16 54 Q60 56 104 54 Q100 78 60 80 Q20 78 16 54 Z" fill="#fff"/><ellipse cx="60" cy="52" rx="38" ry="12" fill="#f0d9a0"/><path d="M30 52 Q44 40 60 50 Q76 40 90 52" stroke="'+c+'" stroke-width="9" fill="none" stroke-linecap="round" opacity=".92"/><circle cx="50" cy="48" r="3" fill="#2f7a3c"/><circle cx="72" cy="46" r="3" fill="#2f7a3c"/><circle cx="62" cy="54" r="2.5" fill="#2f7a3c"/>';
+  else if(kind==="pizza") s=plate+'<circle cx="60" cy="48" r="36" fill="#e8b86a"/><circle cx="60" cy="48" r="30" fill="'+c+'"/><circle cx="60" cy="48" r="26" fill="#f2cc6b" opacity=".85"/><circle cx="46" cy="40" r="5" fill="#2f7a3c"/><circle cx="72" cy="42" r="5" fill="#d9506a"/><circle cx="58" cy="58" r="5" fill="#2f7a3c"/><circle cx="76" cy="58" r="4" fill="#e8a92f"/><path d="M60 22 V74 M24 48 H96" stroke="#e8b86a" stroke-width="1.5" opacity=".7"/>';
+  else if(kind==="ramen") s=plate+'<path d="M14 46 H106 Q104 80 60 82 Q16 80 14 46 Z" fill="#fff"/><ellipse cx="60" cy="46" rx="46" ry="9" fill="'+c+'"/><path d="M24 46 q8-8 16 0 t16 0 t16 0 t16 0" stroke="#f5e1a4" stroke-width="3" fill="none"/><circle cx="76" cy="44" r="7" fill="#fbf4e2"/><circle cx="76" cy="44" r="3" fill="#e8a92f"/><path d="M38 40 q4-6 8 0" stroke="#2f7a3c" stroke-width="3" fill="none"/>';
+  else if(kind==="rice") s=plate+'<path d="M18 50 H102 Q98 80 60 82 Q22 80 18 50 Z" fill="#fff"/><path d="M28 50 Q60 18 92 50 Z" fill="#fbf4e2"/><path d="M40 44 Q60 34 80 44 Q60 52 40 44Z" fill="'+c+'"/><circle cx="52" cy="42" r="3" fill="#7a5a3c"/><circle cx="68" cy="41" r="3" fill="#7a5a3c"/><circle cx="60" cy="38" r="2.5" fill="#2f7a3c"/>';
+  else if(kind==="fries") s=plate+'<g fill="'+c+'"><rect x="38" y="22" width="9" height="40" rx="2" transform="rotate(-12 42 42)"/><rect x="50" y="16" width="9" height="46" rx="2"/><rect x="62" y="20" width="9" height="42" rx="2" transform="rotate(8 66 40)"/><rect x="73" y="26" width="9" height="36" rx="2" transform="rotate(16 77 44)"/></g><path d="M34 54 H86 L80 82 H40 Z" fill="#b4562f"/><path d="M34 54 H86" stroke="#9a4624" stroke-width="2"/>';
+  else if(kind==="coffee") s=plate+'<path d="M40 24 H80 L76 78 H44 Z" fill="#fff" opacity=".85"/><path d="M42 40 H78 L76 78 H44 Z" fill="'+c+'"/><path d="M41 34 H79 L78 42 H42 Z" fill="#f3e6d2"/><path d="M66 10 L72 40" stroke="#c2273d" stroke-width="3" stroke-linecap="round"/>';
+  else if(kind==="cocoa") s=plate+'<path d="M34 40 H82 Q82 76 58 76 Q34 76 34 40 Z" fill="#fff"/><ellipse cx="58" cy="40" rx="24" ry="5" fill="'+c+'"/><path d="M82 46 q14 0 14 10 q0 10 -14 8" stroke="#fff" stroke-width="5" fill="none"/><path d="M48 28 q-4-8 0-14M62 26 q-4-8 0-14" stroke="'+c+'" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".7"/>';
+  else if(kind==="taco") s=plate+'<path d="M20 70 A40 40 0 0 1 100 70 Z" fill="'+c+'"/><path d="M30 66 A30 30 0 0 1 90 66 Z" fill="#fbf4e2"/><circle cx="48" cy="56" r="4" fill="#7a3f2c"/><circle cx="62" cy="52" r="4" fill="#7a3f2c"/><circle cx="74" cy="58" r="4" fill="#7a3f2c"/><path d="M40 62 q10-10 20 0 t20 0" stroke="#2f7a3c" stroke-width="4" fill="none"/>';
+  else if(kind==="table") s='<rect x="0" y="62" width="120" height="34" fill="#a8693f"/><rect x="0" y="62" width="120" height="3" fill="#8a5230"/><circle cx="26" cy="38" r="14" fill="#f6e7c1" opacity=".5"/><circle cx="94" cy="30" r="10" fill="#f6e7c1" opacity=".5"/><path d="M60 8 V26" stroke="#f6e7c1" stroke-width="2"/><path d="M50 26 H70 L66 38 H54 Z" fill="#f0c36b"/><ellipse cx="38" cy="70" rx="22" ry="6" fill="#fff"/><ellipse cx="86" cy="72" rx="20" ry="5.5" fill="#fff"/><circle cx="86" cy="68" r="5" fill="#d9506a"/><circle cx="38" cy="67" r="6" fill="#efe0b4"/>';
+  var bg = bgTone || '#000';
+  return w+'<rect width="120" height="96" fill="'+(kind==="table"?"#1f4a38":"transparent")+'"/>'+(kind==="table"?'':'<rect width="120" height="96" fill="'+c+'" opacity=".16"/>')+s+'</svg>';
+}
+function pic(item, cls){
+  var d=document.createElement('div'); d.className=cls||'pic';
+  if(item.image){ var im=document.createElement('img'); im.src=item.image; im.alt=item.name||item.cap||''; im.loading='lazy'; d.appendChild(im); }
+  else d.innerHTML=art(item.art,item.c);
+  return d;
+}
+function el(t,cls,txt){var e=document.createElement(t); if(cls)e.className=cls; if(txt!=null)e.textContent=txt; return e;}
+
+/* ===== Hero scene ===== */
+(function(){
+  document.getElementById('heroScene').innerHTML =
+  '<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true">'+
+  '<rect width="200" height="160" fill="#1f4a38"/><circle cx="40" cy="30" r="30" fill="#f0c36b" opacity=".18"/><circle cx="160" cy="22" r="18" fill="#f0c36b" opacity=".14"/>'+
+  '<path d="M60 0 V34M140 0 V26" stroke="#f6e7c1" stroke-width="1.5"/><path d="M48 34 H72 L66 48 H54 Z M128 26 H152 L146 40 H134 Z" fill="#f0c36b"/>'+
+  '<rect y="104" width="200" height="56" fill="#a8693f"/><rect y="104" width="200" height="4" fill="#8a5230"/>'+
+  '<ellipse cx="62" cy="130" rx="44" ry="11" fill="#fff"/><path d="M34 126 L88 126 L78 96 Q60 90 44 96 Z" fill="#f6e7c1"/><path d="M44 96 Q60 90 78 96 L77 102 Q60 97 45 102 Z" fill="#d9506a"/><circle cx="56" cy="95" r="3.5" fill="#d9506a"/><circle cx="68" cy="94" r="3.5" fill="#d9506a"/>'+
+  '<ellipse cx="136" cy="132" rx="38" ry="10" fill="#fff"/><path d="M104 124 H168 Q164 144 136 145 Q108 144 104 124 Z" fill="#fff"/><ellipse cx="136" cy="124" rx="32" ry="8" fill="#efe0b4"/><path d="M114 124 Q126 114 136 122 Q148 114 158 124" stroke="#c8452c" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="130" cy="120" r="2.5" fill="#2f7a3c"/><circle cx="146" cy="119" r="2.5" fill="#2f7a3c"/>'+
+  '<path d="M96 96 H128 Q128 118 112 118 Q96 118 96 96 Z" fill="#f6efe0"/><ellipse cx="112" cy="96" rx="16" ry="3.5" fill="#8a5a3c"/><path d="M128 100 q9 0 9 7 q0 7 -9 6" stroke="#f6efe0" stroke-width="3.5" fill="none"/><path d="M106 86 q-3-6 0-10M116 84 q-3-6 0-10" stroke="#f6efe0" stroke-width="1.8" fill="none" stroke-linecap="round" opacity=".7"/>'+
+  '</svg>';
+})();
+
+/* ===== Menu ===== */
+var activeFilter="all";
+function renderFilters(){
+  var box=document.getElementById('filters'); box.innerHTML='';
+  FILTERS.forEach(function(f){
+    var b=el('button','chip',f[1]); b.type='button'; b.setAttribute('aria-pressed',String(activeFilter===f[0]));
+    b.addEventListener('click',function(){activeFilter=f[0]; renderFilters(); renderMenu();});
+    box.appendChild(b);
+  });
+}
+function askAbout(name){
+  var m=document.getElementById('fMsg');
+  m.value="Hi, I'd like to know more about the "+name+" (availability and price).";
+  document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+  setTimeout(function(){document.getElementById('fName').focus({preventScroll:true});},500);
+}
+function renderMenu(){
+  var grid=document.getElementById('menuGrid'); grid.innerHTML='';
+  var items=MENU.filter(function(d){return activeFilter==="all"||d.cat===activeFilter;});
+  if(!items.length){grid.appendChild(el('div','empty','No dishes in this category yet. Check back soon or call us for today\'s menu.')); return;}
+  items.forEach(function(d){
+    var card=el('article','dish');
+    card.appendChild(pic(d,'pic'));
+    var body=el('div','body');
+    var h=el('h3'); h.appendChild(el('span',null,d.name));
+    var v=el('span','veg'); v.setAttribute('role','img'); v.setAttribute('aria-label','Vegetarian'); h.appendChild(v);
+    body.appendChild(h);
+    body.appendChild(el('p','desc',d.desc));
+    var foot=el('div','foot');
+    foot.appendChild(el('span','price', d.price!=null ? '₹'+d.price : 'Ask for price'));
+    var ask=el('button','link-btn','Ask About This Dish'); ask.type='button';
+    ask.addEventListener('click',function(){askAbout(d.name);});
+    foot.appendChild(ask); body.appendChild(foot); card.appendChild(body); grid.appendChild(card);
+  });
+}
+renderFilters(); renderMenu();
+
+/* ===== Bakery, about, reviews, gallery ===== */
+SWEETS.forEach(function(s){
+  var c=el('article','sweet'); c.appendChild(pic(s,'pic')); c.appendChild(el('h3',null,s.name));
+  document.getElementById('sweetGrid').appendChild(c);
+});
+var col=document.getElementById('collage');
+[{art:"table",c:"#1f4a38",cls:"c1",name:"Café seating"},{art:"cheese",c:"#d9506a",cls:"c2",name:"Cheesecake"},{art:"coffee",c:"#8a5a3c",cls:"c3",name:"Coffee"}].forEach(function(i){
+  var d=pic(i,'c '+i.cls); col.appendChild(d);
+});
+REVIEWS.forEach(function(r){
+  var q=el('figure','quote'); q.style.margin=0; q.appendChild(el('p',null,'“'+r+'”')); q.appendChild(el('span',null,'Guest review')); document.getElementById('quotes').appendChild(q);
+});
+document.getElementById('ratingNum').textContent=CONFIG.rating.value+'/5';
+document.getElementById('ratingTxt').textContent='Based on '+CONFIG.rating.count+' reviews';
+document.getElementById('reviewsLink').href=CONFIG.reviewsUrl;
+
+var lbIndex=0, lastFocus=null;
+GALLERY.forEach(function(g,i){
+  var b=el('button'); b.type='button'; b.setAttribute('aria-label','Open '+g.cap);
+  var p=pic(g,''); p.style.aspectRatio='1 / '+g.h; p.style.display='block';
+  b.appendChild(p); b.appendChild(el('span','cap',g.cap));
+  b.addEventListener('click',function(){openLb(i);});
+  document.getElementById('gal').appendChild(b);
+});
+function showLb(){
+  var g=GALLERY[lbIndex], f=document.getElementById('lbFrame'); f.innerHTML='';
+  var p=pic(g,''); p.style.aspectRatio='4 / 3'; f.appendChild(p);
+  document.getElementById('lbCap').textContent=g.cap;
+}
+function openLb(i){lastFocus=document.activeElement; lbIndex=i; showLb(); document.getElementById('lb').classList.add('open'); document.getElementById('lbClose').focus();}
+function closeLb(){document.getElementById('lb').classList.remove('open'); if(lastFocus)lastFocus.focus();}
+function stepLb(n){lbIndex=(lbIndex+n+GALLERY.length)%GALLERY.length; showLb();}
+document.getElementById('lbClose').addEventListener('click',closeLb);
+document.getElementById('lbPrev').addEventListener('click',function(){stepLb(-1);});
+document.getElementById('lbNext').addEventListener('click',function(){stepLb(1);});
+document.getElementById('lb').addEventListener('click',function(e){if(e.target.id==='lb')closeLb();});
+document.addEventListener('keydown',function(e){
+  if(!document.getElementById('lb').classList.contains('open'))return;
+  if(e.key==='Escape')closeLb(); if(e.key==='ArrowLeft')stepLb(-1); if(e.key==='ArrowRight')stepLb(1);
+});
+
+/* ===== Contact, footer, nav ===== */
+document.getElementById('addr').textContent=CONFIG.address+'.';
+document.getElementById('phoneTxt').textContent=CONFIG.phone;
+['dirBtn'].forEach(function(id){document.getElementById(id).href=CONFIG.directionsUrl;});
+document.getElementById('mapBtn').href=CONFIG.mapsUrl;
+document.getElementById('footMap').href=CONFIG.mapsUrl;
+document.getElementById('footAddr').textContent=CONFIG.address;
+document.getElementById('footPhone').textContent=CONFIG.phone;
+document.getElementById('yr').textContent=new Date().getFullYear();
+FILTERS.slice(1).forEach(function(f){
+  var li=el('li'), a=el('a',null,f[1]); a.href='#menu';
+  a.addEventListener('click',function(){activeFilter=f[0]; renderFilters(); renderMenu();});
+  li.appendChild(a); document.getElementById('footCats').appendChild(li);
+});
+document.getElementById('copyPhone').addEventListener('click',function(){
+  var b=this;
+  function done(t){b.textContent=t; setTimeout(function(){b.textContent='Copy number';},1800);}
+  try{navigator.clipboard.writeText(CONFIG.phone).then(function(){done('Copied');},function(){done(CONFIG.phone);});}catch(e){done(CONFIG.phone);}
+});
+var burger=document.getElementById('burger'), mnav=document.getElementById('mnav');
+burger.addEventListener('click',function(){
+  var open=mnav.classList.toggle('open'); burger.setAttribute('aria-expanded',String(open)); burger.setAttribute('aria-label',open?'Close menu':'Open menu');
+  document.getElementById('burgerIc').innerHTML=open?'<path d="M6 6l12 12M18 6L6 18"/>':'<path d="M4 7h16M4 12h16M4 17h16"/>';
+});
+mnav.addEventListener('click',function(e){if(e.target.tagName==='A'){mnav.classList.remove('open'); burger.setAttribute('aria-expanded','false');}});
+(function(){var b=document.getElementById('exploreBtn'); if(window.matchMedia('(min-width:560px)').matches)b.style.display='inline-flex';})();
+
+/* ===== Enquiry form ===== */
+var form=document.getElementById('enq'), statusBox=document.getElementById('status');
+function setErr(id,fieldId,msg){document.getElementById(id).textContent=msg||''; var f=document.getElementById(fieldId); if(msg)f.setAttribute('aria-invalid','true'); else f.removeAttribute('aria-invalid');}
+function showStatus(kind,msg,withCopy){
+  statusBox.className='status show '+kind; statusBox.innerHTML='';
+  statusBox.appendChild(el('span',null,msg));
+  if(withCopy){
+    var b=el('button','link-btn','Copy my message'); b.type='button'; b.style.alignSelf='flex-start';
+    b.addEventListener('click',function(){
+      var t='Name: '+form.name.value+'\nPhone: '+form.phone.value+(form.email.value?'\nEmail: '+form.email.value:'')+'\n\n'+form.message.value;
+      try{navigator.clipboard.writeText(t).then(function(){b.textContent='Copied';},function(){b.textContent='Select and copy from the box above';});}catch(e){b.textContent='Select and copy from the box above';}
+    });
+    statusBox.appendChild(b);
+  }
+}
+form.addEventListener('submit',function(e){
+  e.preventDefault(); statusBox.className='status';
+  var n=form.name.value.trim(), p=form.phone.value.replace(/[\s\-()]/g,''), m=form.email.value.trim(), msg=form.message.value.trim(), ok=true;
+  setErr('eName','fName', n.length<2?'Please enter your name.':''); if(n.length<2)ok=false;
+  var pv=/^(\+?91)?[6-9]\d{9}$/.test(p); setErr('ePhone','fPhone', pv?'':'Enter a valid 10-digit Indian mobile number.'); if(!pv)ok=false;
+  var ev=!m||/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m); setErr('eEmail','fEmail', ev?'':'Enter a valid email address or leave it blank.'); if(!ev)ok=false;
+  setErr('eMsg','fMsg', msg.length<5?'Please write a short message.':''); if(msg.length<5)ok=false;
+  if(!ok){showStatus('bad','Please fix the highlighted fields and try again.'); return;}
+  if(!CONFIG.formEndpoint){showStatus('bad','This enquiry form is not connected to an inbox yet, so nothing was sent. Please call '+CONFIG.phone+' instead.',true); return;}
+  var btn=document.getElementById('sendBtn'); btn.disabled=true; btn.textContent='Sending…';
+  fetch(CONFIG.formEndpoint,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({name:n,phone:p,email:m,message:msg})})
+  .then(function(r){ if(!r.ok) throw new Error('bad'); showStatus('ok','Thank you. Your enquiry has been sent and we will get back to you.'); form.reset(); })
+  .catch(function(){ showStatus('bad','Your enquiry could not be sent. Please try again, or call '+CONFIG.phone+'.',true); })
+  .then(function(){btn.disabled=false; btn.textContent='Submit Enquiry';});
+});
+
+/* ===== Structured data (verified fields only) ===== */
+document.getElementById('ld').textContent=JSON.stringify({
+  "@context":"https://schema.org","@type":"Restaurant","name":CONFIG.name,"servesCuisine":["Vegetarian","Bakery","International"],
+  "telephone":"+919604577771","priceRange":CONFIG.priceRange,
+  "address":{"@type":"PostalAddress","streetAddress":"Plot No. 12, Shop No. 8/9, Ground Floor, Satya Pushpa Solaris, Dashmesh Nagar, New Usmanpura","addressLocality":"Chhatrapati Sambhajinagar","addressRegion":"Maharashtra","postalCode":"431005","addressCountry":"IN"},
+  "hasMenu":"#menu"
+});
+</script>
+
+</body></html>
